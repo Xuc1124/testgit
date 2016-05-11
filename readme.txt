@@ -1,2 +1,2 @@
 This is my first try git!
-Help me!
+Help me!(no way!)
