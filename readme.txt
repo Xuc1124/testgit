@@ -1,3 +1,3 @@
 This is my first try git!
-Help me!(no way!)
-last
+Help me!
+last(but not least)
