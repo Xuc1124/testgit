@@ -1,1 +1,72 @@
-qweqw
+ANT学习
+简介
+Ant是Apache基金会下的跨平台的构建工具，它可以实现自动构建和部署。
+安装与配置
+下载地址：http://ant.apache.org/，本文中使用的是1.8.2版本。解压到某个目录（例如D:\apache-ant-1.8.2），即可使用。
+添加系统环境变量：ANT_HOME=D:\apache-ant-1.8.2，path=%ANT_HOME%\bin;%ANT_HOME%\lib;
+运行命令 ant –version，如果安装配置成功，则会显示版本信息，如下图所示：
+ 
+简单使用
+Ant的构建文件是基于xml文件编写的，默认名称为build.xml，例如直接运行命令 ant
+ 表明构建失败，原因是当前目录没有build.xml文件。
+如图，新建build.xml文件：
+ 
+运行 ant，结果如下：
+ ，构建成功，但没有任何输出。
+注意：如果保存的文件不是build.xml，例如有另外版本的构建文件为a.xml，则运行命令时得指定文件 ant –f a.xml，如下图：
+ 
+元素说明
+project元素
+这个是Ant构建文件的根元素，每个构建文件至少包含一个project元素，否则构建会失败。在每个project元素下，有多个target元素，表示有多个任务要执行。
+name属性
+用于指定project元素的名称。
+default属性
+用于指定project默认执行的target名称。
+例如有如下构建文件：
+ 
+执行 ant 
+ 会输出Hello World!不加default属性，可以指定执行某个任务，ant sayHelloWorld，结果与之前一样。
+basedir属性
+用于指定基本路径的位置。未设定basedir时，使用Ant的构建文件的目录作为基本路径。
+target元素
+Ant的基本执行单元，它可以包含一个或者多个具体的任务。多个target可以存在相互依赖关系。
+name属性
+指定target元素的名称，这个属性在一个project元素中是唯一的。
+depend属性
+用于描述target之间的依赖关系。若存在多个依赖关系，需要用“,”间隔。Ant会依据depends属性中target出现的顺序依次执行每个target。被依赖的target会先执行。
+例如有如下构建文件：
+ 
+执行 ant sayHelloWorld
+ 发现执行sayHelloWorld任务时，先执行了anothertarget，因为sayHelloWorld任务依赖anothertarget。
+if属性
+用于验证指定的属性书否存在，若不存在，则该targe不会执行。
+unless属性
+与if属性相反，若不存在该属性，则target会执行。
+description属性
+用于描述target功能。
+property元素
+用于定义属性，例如
+ 
+用${name}使用。
+也可从外部导入属性文件，如<property file=”build.properties”/>。
+Ant常用任务
+Copy任务
+主要用来复制文件或者目录。
+ 
+Delete任务
+删除文件或者目录。
+ 
+Move任务
+移动文件或者目录。
+ 
+Mkdir任务
+创建目录。
+ 
+Echo任务
+用于输出信息。
+ 
+使用Ant运行java程序
+Ant中可以使用java任务实现java程序功能。构建文件如图：
+ 
+实际就是模拟命令行javac java等一些列操作。
+
